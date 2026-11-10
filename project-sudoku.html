@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Logic Wiz: Sudoku App Redesign | Iris Burstein</title>
+<meta name="description" content="A complete redesign of the Logic Wiz Sudoku Variants app, with a responsive Figma design system, app screens and marketing materials.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iris Burstein">
+<meta property="og:title" content="Logic Wiz: Sudoku App Redesign | Iris Burstein">
+<meta property="og:description" content="A complete redesign of the Logic Wiz Sudoku Variants app, with a responsive Figma design system, app screens and marketing materials.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #fff; color: #2f2f2f; overflow-x: hidden; font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+  .proj { position: relative; text-align: center; padding: clamp(72px, 9vw, 112px) clamp(16px, 5vw, 64px) clamp(56px, 7vw, 104px); }
+  .back { position: absolute; top: clamp(16px,3vw,32px); left: clamp(16px,4vw,48px); color: #2f2f2f; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; line-height: 1; font-size: 15px; letter-spacing: .04em; padding: 10px 18px 10px 14px; border: 1px solid #d8d8de; border-radius: 999px; transition: background .25s, color .25s, border-color .25s; z-index: 2; }
+  .back .bk { flex: none; transition: transform .25s; }
+  .back:hover .bk { transform: translateX(-3px); }
+  .back:hover { background: linear-gradient(90deg, #a68bf3, #5db5ff); color: #fff; border-color: transparent; }
+  .inner { max-width: 1200px; margin: 0 auto; }
+  h1 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: clamp(40px, 7vw, 80px); line-height: 1; color: #2f2f2f; }
+  .sub { margin-top: 14px; font-size: clamp(16px, 2vw, 22px); color: #6b6b6b; }
+  .chips { list-style: none; padding: 0; margin: 20px 0 clamp(24px, 3vw, 40px); display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .chips li { padding: 6px 14px; border: 1px solid #d6d6d6; border-radius: 999px; font-size: 14px; color: #555; letter-spacing: .02em; }
+  .copy { max-width: 680px; margin: 0 auto clamp(28px, 4vw, 48px); text-align: left; font-size: clamp(16px, 1.9vw, 19px); line-height: 1.65; color: #4a4a4a; }
+  .stack { display: flex; flex-direction: column; align-items: center; gap: clamp(12px, 2vw, 28px); }
+  .hero-v { width: 100%; border-radius: 14px; overflow: hidden; background: #000; aspect-ratio: 4 / 3; }
+  .hero-v video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .shot { position: relative; margin: 0; width: 100%; max-width: var(--mw, 100%); border-radius: 14px; overflow: hidden; background: #eee; cursor: zoom-in; }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot:focus-visible { outline: 3px solid #7f9ef7; outline-offset: 3px; }
+  .phones { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.6vw, 20px); margin-top: clamp(12px, 2vw, 28px); }
+  @media (max-width: 700px) { .phones { grid-template-columns: repeat(2, 1fr); } }
+  .shot.rv { opacity: 0; translate: 0 44px; scale: .92; rotate: var(--rv-r, 2deg); }
+  .shot.rv.in { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; transition: opacity .5s ease, translate .85s cubic-bezier(.2, 1.35, .4, 1), scale .85s cubic-bezier(.2, 1.35, .4, 1), rotate .85s cubic-bezier(.2, 1.35, .4, 1); transition-delay: var(--d, 0ms); }
+  @media (prefers-reduced-motion: reduce) { .shot.rv { opacity: 1; translate: none; scale: 1; rotate: 0deg; } }
+  .lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.94); opacity: 0; transition: opacity .25s; cursor: zoom-out; }
+  .lb.open { opacity: 1; }
+  .lb[hidden] { display: none; }
+  .lb img { max-width: 94vw; max-height: 94vh; object-fit: contain; border-radius: 8px; }
+  .lb-close { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; display: grid; place-items: center; cursor: pointer; }
+  .lb-close:hover { background: rgba(255,255,255,.26); }
+  .site-foot { padding: 28px 16px 34px; text-align: center; font-size: 13px; letter-spacing: .06em; line-height: 1.9; color: #6b6b6b; background: #fff; border-top: 1px solid #ececec; }
+  .site-foot b { font-weight: 700; color: #2f2f2f; }
+  .site-foot a { color: #555; text-decoration: none; border-bottom: 1px solid #c9c9d0; transition: color .2s, border-color .2s; }
+  .site-foot a:hover { color: #5a6fe0; border-color: #5a6fe0; }
+  .site-foot .sep { margin: 0 8px; opacity: .6; }
+  .band { background: #efeff2; margin: clamp(40px, 6vw, 80px) calc(50% - 50vw) calc(-1 * clamp(56px, 7vw, 104px)); padding: clamp(32px, 5vw, 64px) 0 clamp(56px, 7vw, 104px); }
+  .band-in { box-sizing: content-box; max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 5vw, 64px); }
+  .sec { width: 100%; margin-top: clamp(40px, 6vw, 80px); }
+  .sec:first-child { margin-top: 0; }
+  .sec h2 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: clamp(28px, 4vw, 44px); line-height: 1; color: #2f2f2f; margin-bottom: clamp(16px, 2.4vw, 28px); }
+  .gal { display: grid; gap: clamp(10px, 1.6vw, 20px); width: 100%; }
+  .gal.aso { grid-template-columns: repeat(3, 1fr); }
+  .gal.ico { grid-template-columns: repeat(5, 1fr); gap: clamp(10px, 2vw, 28px); }
+  .gal.ads { grid-template-columns: repeat(2, 1fr); }
+  .gal.vids { grid-template-columns: repeat(3, 1fr); }
+  .gal .shot { max-width: none; background: transparent; }
+  .gal.ico .shot { background: transparent; border-radius: 0; overflow: visible; filter: drop-shadow(0 2px 8px rgba(0,0,0,.18)); }
+  .vid { position: relative; margin: 0; border-radius: 14px; overflow: hidden; background: #000; }
+  .vid video { display: block; width: 100%; height: auto; }
+  .vid.wide { grid-column: 1 / -1; max-width: 760px; margin: 0 auto; width: 100%; }
+  @media (max-width: 900px) { .gal.aso { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .gal.ico { grid-template-columns: repeat(5, 1fr); gap: 8px; } .gal.ads { grid-template-columns: 1fr; } }
+</style>
+<script>
+// Sub-pages always open at the top (unless linking to a section)
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+const toTop = () => { if (!location.hash) scrollTo(0, 0); };
+toTop(); addEventListener('DOMContentLoaded', toTop); addEventListener('load', () => { toTop(); setTimeout(toTop, 120); }); addEventListener('pageshow', toTop);
+</script>
+</head>
+<body>
+<main class="proj">
+  <a class="back" href="index.html#uiux"><svg class="bk" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7.5 3.5 3 8l4.5 4.5"/></svg><span>Back</span></a>
+  <div class="inner">
+    <h1>Logic Wiz</h1>
+    <ul class="chips"><li>UI/UX</li><li>Mobile app</li><li>Design system</li><li>Figma</li></ul>
+    <div class="copy">
+      <p>A complete redesign of Logic Wiz's existing Sudoku Variants app. I created a custom responsive design system in Figma and designed many of the app's screens, built to work across different devices and themes. I also helped design several new game features and created marketing materials for ASO and advertising.</p>
+    </div>
+    <div class="stack">
+      <figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="ui1v3.jpg" alt="Logic Wiz app: home, game and premium screens"></figure>
+      <figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw3.jpg" alt="Logic Wiz app screens: variants, game, settings, difficulty and statistics"></figure>
+    </div>
+    <div class="band"><div class="band-in">
+    <section class="sec" id="aso"><h2>ASO images</h2><div class="gal aso"><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-aso1.jpg" alt="App store image: Sudoku and variants" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-aso2.jpg" alt="App store image: Classic sudoku" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-aso8.jpg" alt="App store image: 40+ sudoku variants" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-aso3.jpg" alt="App store image: Select difficulty" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-aso4.jpg" alt="App store image: Themed weekly challenges" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-aso6.jpg" alt="App store image: Track your stats" loading="lazy"></figure></div></section>
+    <section class="sec" id="icons"><h2>Icon testing</h2><div class="gal ico"><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico1.png" alt="Crown and knight icon, version A" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico2.png" alt="Crown and knight icon, version B" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico3.png" alt="Crown and knight icon, version C" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico4.png" alt="Pencil and crown icon" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico5.png" alt="Blue crown and knight icon" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico6.png" alt="Light crown and knight icon" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico7.png" alt="Pretty board icon" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico8.png" alt="Pretty board squares icon" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico9.png" alt="Color areas icon" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ico10.png" alt="Color areas palindrome icon" loading="lazy"></figure></div></section>
+    <section class="sec" id="static-ads"><h2>Static ads</h2><div class="gal ads"><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ad1.jpg" alt="3D pencil ad" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ad2.jpg" alt="Play while you wait ad" loading="lazy"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="lw-ad3.jpg" alt="Single puzzle timer ad" loading="lazy"></figure><figure class="vid"><video src="lw-adloop.mp4" autoplay muted loop playsinline aria-label="Test your IQ animated ad"></video></figure></div></section>
+    <section class="sec" id="video-ads"><h2>Video ads</h2><div class="gal vids"><figure class="vid "><video src="lw-vid1.mp4" poster="lw-vid1.jpg" controls preload="none" playsinline></video></figure><figure class="vid "><video src="lw-vid2.mp4" poster="lw-vid2.jpg" controls preload="none" playsinline></video></figure><figure class="vid "><video src="lw-vid3.mp4" poster="lw-vid3.jpg" controls preload="none" playsinline></video></figure></div></section>
+    </div></div>
+  </div>
+</main>
+<footer class="site-foot"><div><b>Iris Burstein</b><span class="sep">·</span>Motion and UX design</div><div><a href="mailto:iris.burstein@gmail.com">Email</a><span class="sep">·</span><a href="https://www.linkedin.com/in/iris-burstein-78389411/" target="_blank" rel="noopener">LinkedIn</a></div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden><button class="lb-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><img alt=""></div>
+<script>
+(() => {
+  const shots = [...document.querySelectorAll('.shot')];
+  const lb = document.getElementById('lb'), li = lb.querySelector('img'); let last = null, t = 0;
+  const open = s => { clearTimeout(t); last = s; const im = s.querySelector('img'); li.src = im.currentSrc || im.src; li.alt = im.alt; lb.hidden = false; document.body.style.overflow = 'hidden'; requestAnimationFrame(() => lb.classList.add('open')); lb.querySelector('button').focus({ preventScroll: true }); };
+  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; t = setTimeout(() => { lb.hidden = true; li.removeAttribute('src'); }, 250); if (last) last.focus({ preventScroll: true }); };
+  shots.forEach(s => { s.addEventListener('click', () => open(s)); s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(s); } }); });
+  lb.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (!lb.hidden && e.key === 'Escape') close(); });
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    let n = 0, timer = 0, q = [];
+    const flush = () => { q.forEach((el, i) => { el.style.setProperty('--d', i * 90 + 'ms'); el.classList.add('in'); }); q = []; };
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); q.push(e.target); clearTimeout(timer); timer = setTimeout(flush, 30); } }), { threshold: 0.12 });
+    shots.forEach((s, i) => { s.classList.add('rv'); s.style.setProperty('--rv-r', (i % 2 ? -2 : 2) + 'deg'); io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>

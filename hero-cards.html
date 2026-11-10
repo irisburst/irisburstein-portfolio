@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Iris Burstein | Motion &amp; UX Designer</title>
+<meta name="description" content="Portfolio of Iris Burstein: motion graphics, performance marketing video ads, UI/UX design and illustration.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Iris Burstein">
+<meta property="og:title" content="Iris Burstein | Motion &amp; UX Designer">
+<meta property="og:description" content="Portfolio of Iris Burstein: motion graphics, performance marketing video ads, UI/UX design and illustration.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --s: clamp(110px, 21.85vw, 218px); }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    background: #fff; color: #2f2f2f; overflow-x: hidden;
+    font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hero {
+    position: relative; height: 100svh; min-height: 480px; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 0 16px;
+  }
+  #dots { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  h1, h2, .stage { position: relative; z-index: 1; }
+  .meta, .hint { z-index: 1; }
+  .nav { position: absolute; top: 18px; right: clamp(16px, 4vw, 48px); z-index: 2; display: flex; gap: clamp(18px, 3vw, 28px); font-size: clamp(14px, 1.6vw, 16px); letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+  .nav a { color: #8a8a8a; text-decoration: none; padding: 6px 0; background: linear-gradient(90deg, #a68bf3, #5db5ff) no-repeat 0 calc(100% - 1px) / 0 2px; transition: color .2s, background-size .3s; }
+  .nav a:hover, .nav a[aria-current] { color: #2f2f2f; background-size: 100% 2px; }
+  .meta { position: absolute; top: 22px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+  h1 {
+    font-family: Impact, "Arial Narrow Bold", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800; text-transform: none; line-height: .95;
+    font-size: clamp(44px, 9vw, 96px); letter-spacing: .005em;
+  }
+  h2 {
+    font-family: Impact, "Arial Narrow Bold", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800; text-transform: uppercase; line-height: .95; color: #d9d9d9;
+    font-size: clamp(36px, 9vw, 96px); text-wrap: balance; max-width: 16em;
+  }
+  .tag { position: relative; z-index: 1; margin-top: 12px; color: #555; font-size: clamp(15px, 2vw, 22px); letter-spacing: .02em; }
+  .tag em { font-style: italic; background: linear-gradient(90deg, #a68bf3, #5db5ff); -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .08em; }
+  .stage { position: relative; width: 100%; height: calc(var(--s) * 1.55); margin: 2vh 0; }
+  .card {
+    position: absolute; left: 50%; top: 50%;
+    width: var(--s); height: var(--s);
+    margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+    border-radius: 18%; cursor: grab; touch-action: none; user-select: none;
+    will-change: transform; box-shadow: 0 14px 30px rgba(0,0,0,.16);
+  }
+  .card.drag { cursor: grabbing; box-shadow: 0 22px 40px rgba(0,0,0,.22); }
+  .card:nth-child(1) { background-image: url(hc2.jpg); background-size: cover; background-position: center; background-color: #778c84; }
+  .card:nth-child(2) { background-image: url(hc1.jpg); background-size: cover; background-position: center; background-color: #766663; }
+  .card:nth-child(3) { background-image: url(hc3.jpg); background-size: cover; background-position: center; background-color: #9ba78c; }
+  .card:nth-child(4) { background-image: url(hc4.jpg); background-size: cover; background-position: center; background-color: #bc656f; }
+  .hint { position: absolute; bottom: 20px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #b5b5b5; }
+  .reel { background: #000; padding: clamp(40px, 8vw, 120px) clamp(16px, 5vw, 64px); display: flex; flex-direction: column; align-items: center; gap: clamp(24px, 3.5vw, 44px); color: #fff; }
+  .reel .ads-title { text-align: center; }
+  .reel-wrap { position: relative; width: 100%; max-width: 1200px; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #111; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+  .reel-play { position: absolute; left: 50%; top: 50%; width: clamp(64px, 9vw, 96px); height: clamp(64px, 9vw, 96px); margin: calc(clamp(64px, 9vw, 96px) / -2) 0 0 calc(clamp(64px, 9vw, 96px) / -2); border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: #111; display: grid; place-items: center; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.4); transition: transform .25s, background .25s, color .25s, opacity .25s; }
+  .reel-play svg { width: 36%; height: 36%; margin-left: 6%; }
+  .reel-play:hover { transform: scale(1.08); background: linear-gradient(90deg, #a68bf3, #5db5ff); color: #fff; }
+  .reel-wrap.playing .reel-play { opacity: 0; pointer-events: none; }
+  .reel video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+  .ads { background: #fff; color: #2f2f2f; text-align: center; padding: clamp(36px, 5vw, 64px) clamp(16px, 5vw, 64px) clamp(56px, 7vw, 104px); }
+  .ads-inner { max-width: 1200px; margin: 0 auto; }
+  .ads-title { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: clamp(40px, 7vw, 80px); line-height: 1; }
+  .ads-text { margin-top: 14px; font-size: clamp(16px, 2vw, 22px); color: #6b6b6b; }
+  .chips { list-style: none; padding: 0; margin: 20px 0 clamp(24px, 3vw, 36px); display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .chips li { padding: 6px 14px; border: 1px solid #d6d6d6; border-radius: 999px; font-size: 14px; color: #555; letter-spacing: .02em; }
+  .gallery { display: grid; grid-template-columns: 1.778fr .8fr .8fr; gap: clamp(10px, 1.6vw, 20px); align-items: stretch; }
+  .tile { position: relative; margin: 0; border-radius: 14px; overflow: hidden; background: #eee; cursor: pointer; }
+  .tile.wide { aspect-ratio: 16 / 9; }
+  .tile.tall { aspect-ratio: 4 / 5; }
+  .tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .more { margin-top: clamp(24px, 3vw, 40px); padding: 16px 0; width: min(100%, 252px); border: 0; border-radius: 999px; background: #111; color: #fff; font: inherit; font-size: 16px; letter-spacing: .04em; cursor: pointer; transition: background .25s, transform .25s; }
+  a.more { display: inline-block; text-decoration: none; text-align: center; }
+  .more:hover { background: linear-gradient(90deg, #a68bf3, #5db5ff); transform: translateY(-2px); }
+  .ui { background: #f2f0fb; }
+  .motion { background: #fff; }
+  .sci { background: #e9f3f1; }
+  .dogvid { background: #e8f1fb; }
+  .dog-wrap { width: 100%; max-width: 1000px; margin: 0 auto; aspect-ratio: 5 / 3; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 18px 50px rgba(30,60,110,.22); }
+  .dog-wrap video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+  .art { background: #17171a; color: #f2f2f2; }
+  .art .ads-text { color: #a9a9b0; }
+  .art .chips li { border-color: #3b3b42; color: #cfcfd4; }
+  .art .more { display: inline-block; text-decoration: none; text-align: center; background: #f2f2f2; color: #17171a; }
+  .art .more:hover { background: linear-gradient(90deg, #a68bf3, #5db5ff); color: #fff; }
+  .jrow.extra { display: none; }
+  .gallery.open .jrow.extra { display: flex; animation: artIn .5s ease both; }
+  @keyframes artIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  .sbento { display: flex; gap: clamp(10px, 1.6vw, 20px); align-items: stretch; }
+  .sbento > .tile { flex: .747 1 0; aspect-ratio: auto; min-width: 0; }
+  .sbento .scol { flex: 1.327 1 0; min-width: 0; display: flex; flex-direction: column; gap: clamp(10px, 1.6vw, 20px); }
+  .sbento .scol > .tile { aspect-ratio: var(--ar); }
+  @media (max-width: 700px) { .sbento { flex-direction: column; } .sbento > .tile { flex: none; aspect-ratio: var(--ar); } }
+  .gallery.just { display: flex; flex-direction: column; gap: clamp(10px, 1.6vw, 20px); }
+  .jrow { display: flex; gap: clamp(10px, 1.6vw, 20px); }
+  .jrow .tile { flex: var(--ar) 1 0px; aspect-ratio: var(--ar); min-width: 0; }
+  @media (max-width: 700px) { .gallery.just .jrow { flex-direction: column; } .gallery.just .jrow .tile { flex: none; width: 100%; } }
+  .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery.bento { grid-template-columns: 2.12fr 1fr; }
+  .bento .tile.big { grid-column: 1; grid-row: 1 / span 2; }
+  .bento .tile.r1, .bento .tile.r2 { grid-column: 2; }
+  .tile.a-img2 { aspect-ratio: 2576 / 1772; }
+  .tile.a-sudoku { aspect-ratio: 2000 / 1355; }
+  .tile.a-43 { aspect-ratio: 4 / 3; }
+  .lb img { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+  .lb img[hidden], .lb video[hidden] { display: none; }
+  .tile[data-href] .expand { display: none; }
+  .tile:focus-visible { outline: 3px solid #7f9ef7; outline-offset: 3px; }
+  .expand { position: absolute; right: 10px; bottom: 10px; width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,.5); color: #fff; display: grid; place-items: center; opacity: 0; transform: scale(.9); transition: opacity .2s, transform .2s; pointer-events: none; }
+  .tile:hover .expand, .tile:focus-visible .expand { opacity: 1; transform: none; }
+  .lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.94); opacity: 0; transition: opacity .25s; }
+  .lb[hidden] { display: none; }
+  .lb.open { opacity: 1; }
+  .lb-stage { --ar: 1.778; aspect-ratio: var(--ar); width: min(84vw, calc(86vh * var(--ar))); border-radius: 12px; overflow: hidden; background: #000; transform: scale(.96); transition: transform .25s; }
+  .lb.open .lb-stage { transform: none; }
+  .lb video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+  .lb-close, .lb-nav { position: absolute; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; display: grid; place-items: center; cursor: pointer; transition: background .2s; }
+  .lb-close:hover, .lb-nav:hover { background: rgba(255,255,255,.26); }
+  .lb-close { top: 18px; right: 18px; }
+  .lb-nav { top: 50%; margin-top: -22px; }
+  .lb-nav.prev { left: 18px; }
+  .lb-nav.next { right: 18px; }
+  @media (max-width: 700px) {
+    .lb-stage { width: min(96vw, calc(78vh * var(--ar))); }
+    .lb-nav { top: auto; bottom: 24px; margin: 0; }
+    .lb-nav.prev { left: calc(50% - 56px); }
+    .lb-nav.next { right: calc(50% - 56px); }
+  }
+  @media (max-width: 700px) {
+    .gallery { grid-template-columns: 1fr 1fr; }
+    .tile.wide { grid-column: 1 / -1; }
+    .gallery.bento { grid-template-columns: 1fr; }
+    .bento .tile.big { grid-column: 1; grid-row: auto; aspect-ratio: 4 / 3; }
+    .bento .tile.r1, .bento .tile.r2 { grid-column: 1; }
+  }
+  h1, h2 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; }
+  /* Light sweep: a soft highlight (--mx/--my/--a set from JS) travels across the big text */
+  h1 {
+    color: transparent;
+    background:
+      linear-gradient(120deg, rgba(200,200,215,0) calc(var(--p, -999px) - 38px), rgba(200,200,215,var(--a, 0)) var(--p, -999px), rgba(200,200,215,0) calc(var(--p, -999px) + 38px)),
+      linear-gradient(#2f2f2f, #2f2f2f);
+    -webkit-background-clip: text; background-clip: text;
+  }
+  h2 {
+    color: transparent;
+    background:
+      linear-gradient(120deg, rgba(255,255,255,0) calc(var(--p, -999px) - 38px), rgba(255,255,255,var(--a, 0)) var(--p, -999px), rgba(255,255,255,0) calc(var(--p, -999px) + 38px)),
+      linear-gradient(90deg, #a68bf3 0%, #7f9ef7 50%, #5db5ff 100%);
+    -webkit-background-clip: text; background-clip: text;
+  }
+  /* Gallery items pop in as they scroll into view */
+  .tile.rv { opacity: 0; translate: 0 44px; scale: .9; rotate: var(--rv-r, 2deg); }
+  .tile.rv.in { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; transition: opacity .5s ease, translate .85s cubic-bezier(.2, 1.35, .4, 1), scale .85s cubic-bezier(.2, 1.35, .4, 1), rotate .85s cubic-bezier(.2, 1.35, .4, 1); transition-delay: var(--d, 0ms); }
+  .site-foot { padding: 28px 16px 34px; text-align: center; font-size: 13px; letter-spacing: .06em; line-height: 1.9; color: #6b6b6b; background: #fff; border-top: 1px solid #ececec; }
+  .site-foot b { font-weight: 700; color: #2f2f2f; }
+  .site-foot a { color: #555; text-decoration: none; border-bottom: 1px solid #c9c9d0; transition: color .2s, border-color .2s; }
+  .site-foot a:hover { color: #5a6fe0; border-color: #5a6fe0; }
+  .site-foot .sep { margin: 0 8px; opacity: .6; }
+</style>
+</head>
+<body>
+<main class="hero">
+  <canvas id="dots"></canvas>
+  <nav class="nav" aria-label="Main"><a href="index.html" aria-current="page">Work</a><a href="about.html">About</a></nav>
+  <h1>Iris Burstein</h1>
+  <div class="stage" id="stage">
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+  </div>
+  <h2>Motion &amp; UX design</h2>
+  <p class="tag">Creating things that move <em class="soft">people</em></p>
+</main>
+
+<section class="reel" id="reel">
+  <h3 class="ads-title">Motion Reel</h3>
+  <div class="reel-wrap">
+    <video playsinline preload="none" poster="reel-poster.jpg" src="reel.mp4"></video>
+    <button class="reel-play" type="button" aria-label="Play motion reel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 6 3.5z"/></svg></button>
+  </div>
+</section>
+
+<section class="ads" id="ads">
+  <div class="ads-inner">
+    <h3 class="ads-title">Video ads</h3>
+    <p class="ads-text">Data-driven creatives for mobile gaming and more</p>
+    <ul class="chips">
+      <li>Performance marketing</li>
+      <li>After Effects</li>
+      <li>AI tools</li>
+    </ul>
+    <div class="gallery">
+      <figure class="tile wide" tabindex="0" role="button" aria-label="Open ad 1 full screen" data-ar="1.778">
+        <video muted loop playsinline preload="none" data-rest="3.1" poster="ad1.jpg" src="lo/ad1.mp4" data-full="ad1.mp4"></video>
+        <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+      </figure>
+      <figure class="tile tall" tabindex="0" role="button" aria-label="Open ad 2 full screen" data-ar="0.8">
+        <video muted loop playsinline preload="none" data-rest="0.6" poster="ad2.jpg" src="lo/ad2.mp4" data-full="ad2.mp4"></video>
+        <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+      </figure>
+      <figure class="tile tall" tabindex="0" role="button" aria-label="Open ad 3 full screen" data-ar="0.8">
+        <video muted loop playsinline preload="none" data-rest="0.25" poster="ad3.jpg" src="lo/ad3.mp4" data-full="ad3.mp4"></video>
+        <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+      </figure>
+    </div>
+    <a class="more" href="videos.html">See more</a>
+  </div>
+</section>
+
+<section class="ads ui" id="uiux">
+  <div class="ads-inner">
+    <h3 class="ads-title">UI/UX Design</h3>
+    <p class="ads-text">A mix of personal and paid projects for app and web design</p>
+    <ul class="chips">
+      <li>Figma</li>
+      <li>After Effects</li>
+    </ul>
+    <div class="gallery bento">
+      <figure class="tile big" tabindex="0" role="button" aria-label="Open the Deep project" data-ar="1.333" data-href="project-deep.html">
+        <video muted loop playsinline preload="none" data-rest="5" poster="ui3.jpg" src="lo/ui3.mp4" data-full="ui3.mp4"></video>
+        <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+      </figure>
+      <figure class="tile r1 a-sudoku" tabindex="0" role="button" aria-label="Open the Logic Wiz project" data-ar="1.476" data-type="image" data-href="project-sudoku.html">
+        <img src="ui1v3.jpg" alt="Logic Wiz sudoku app: home, game and premium screens">
+        <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+      </figure>
+      <figure class="tile r2 a-img2" tabindex="0" role="button" aria-label="Open the Sunrise Yoga Studio project" data-ar="1.454" data-type="image" data-href="project-yoga.html">
+        <img src="ui2.jpg" alt="Sunrise Yoga Studio website design shown on a laptop">
+        <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="ads motion" id="motion">
+  <div class="ads-inner">
+    <h3 class="ads-title">Motion &amp; characters</h3>
+    <p class="ads-text">In-game character design, marketing material and fun side projects</p>
+    <ul class="chips">
+      <li>Illustration</li>
+      <li>Animation</li>
+    </ul>
+    <div class="gallery just">
+      <div class="jrow">
+        <figure class="tile" style="--ar:1.333" tabindex="0" role="button" aria-label="Open item 1 full screen" data-ar="1.333" data-type="image">
+          <img src="mc1.jpg" alt="Cartoon chicken character, close-up and in action poses">
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+        <figure class="tile" style="--ar:1.176" tabindex="0" role="button" aria-label="Open item 2 full screen" data-ar="1.176" data-loop="1">
+          <video muted loop playsinline preload="none" data-rest="1" poster="mc2.jpg" src="mc2.mp4"></video>
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+      </div>
+      <div class="jrow">
+        <figure class="tile" style="--ar:1.333" tabindex="0" role="button" aria-label="Open item 3 full screen" data-ar="1.333" data-loop="1">
+          <video muted loop playsinline preload="none" data-rest="1.5" poster="mc3.jpg" src="mc3.mp4"></video>
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+        <figure class="tile" style="--ar:1" tabindex="0" role="button" aria-label="Open item 4 full screen" data-ar="1" data-loop="1">
+          <video muted loop playsinline preload="none" data-rest="1" poster="mc4.jpg" src="mc4.mp4"></video>
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ads sci" id="sci">
+  <div class="ads-inner">
+    <h3 class="ads-title">Scientific Illustration</h3>
+    <ul class="chips">
+      <li>Figma</li>
+      <li>Photoshop</li>
+    </ul>
+    <div class="gallery sbento">
+        <figure class="tile" style="--ar:0.747" tabindex="0" role="button" aria-label="Open item 4 full screen" data-ar="0.747" data-type="image">
+          <img src="si4.jpg" alt="Suggested Nature magazine cover on plasmid DNA shielding itself from bacterial immune defenses" loading="lazy">
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+      <div class="scol">
+        <div class="jrow">
+        <figure class="tile" style="--ar:0.719" tabindex="0" role="button" aria-label="Open item 2 full screen" data-ar="0.719" data-type="image">
+          <img src="si2.png" alt="Figure: language models in biology, from English, DNA, protein and genome to applications" loading="lazy">
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+        <figure class="tile" style="--ar:0.608" tabindex="0" role="button" aria-label="Open item 3 full screen" data-ar="0.608" data-type="image">
+          <img src="si1.png" alt="Figure: word2vec, BiLSTM and Transformer architectures" loading="lazy">
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ads art" id="art">
+  <div class="ads-inner">
+    <h3 class="ads-title">Classic Art</h3>
+    <p class="ads-text">This is where I came from</p>
+    <ul class="chips">
+      <li>Acrylic</li>
+      <li>Oil</li>
+      <li>Pencil</li>
+      <li>Airbrush</li>
+    </ul>
+    <div class="gallery just" id="artGallery">
+      <div class="jrow">
+        <figure class="tile" style="--ar:1.379" tabindex="0" role="button" aria-label="Open artwork 1 full screen" data-ar="1.379" data-type="image">
+          <img src="ca1.jpg" alt="Pink flamingo with its head bowed, oil painting" loading="lazy">
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+        <figure class="tile" style="--ar:1.673" tabindex="0" role="button" aria-label="Open artwork 2 full screen" data-ar="1.673" data-type="image">
+          <img src="ca2.jpg" alt="Humpback whale in deep blue with a line of crystals" loading="lazy">
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+      </div>
+      <div class="jrow">
+        <figure class="tile" style="--ar:1.501" tabindex="0" role="button" aria-label="Open artwork 3 full screen" data-ar="1.501" data-type="image">
+          <img src="ca3.jpg" alt="Gentoo penguins walking and reflected on wet sand" loading="lazy">
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+        <figure class="tile" style="--ar:0.907" tabindex="0" role="button" aria-label="Open artwork 9 full screen" data-ar="0.907" data-type="image">
+          <img src="ca9.jpg" alt="Pencil portrait of a young woman" loading="lazy">
+          <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+        </figure>
+      </div>
+    </div>
+    <a class="more" href="art.html">See more</a>
+  </div>
+</section>
+
+
+
+<section class="ads dogvid" id="dogvid">
+  <div class="ads-inner">
+    <h3 class="ads-title">AI video about my dog (2024)</h3>
+    <p class="ads-text">Bonus points for scrolling this far!<br>Suki is a real supermodel.</p>
+    <ul class="chips">
+      <li>Runway</li>
+      <li>Luma</li>
+      <li>Kling</li>
+    </ul>
+    <div class="dog-wrap">
+      <video controls playsinline preload="none" poster="dog-poster.jpg" src="dog.mp4"></video>
+    </div>
+  </div>
+</section>
+
+<footer class="site-foot"><div><b>Iris Burstein</b><span class="sep">·</span>Motion and UX design</div><div><a href="mailto:iris.burstein@gmail.com">Email</a><span class="sep">·</span><a href="https://www.linkedin.com/in/iris-burstein-78389411/" target="_blank" rel="noopener">LinkedIn</a></div></footer>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Video ad" hidden>
+  <button class="lb-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-nav prev" type="button" aria-label="Previous video"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div class="lb-stage"><video id="lbVideo" controls playsinline></video><img id="lbImg" alt="" hidden></div>
+  <button class="lb-nav next" type="button" aria-label="Next video"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+
+<script>
+// Reel: big play button; native controls appear once playback starts
+(() => {
+  const wrap = document.querySelector('.reel-wrap'), v = wrap.querySelector('video'), b = wrap.querySelector('.reel-play');
+  b.addEventListener('click', () => { v.controls = true; wrap.classList.add('playing'); v.play(); });
+  v.addEventListener('ended', () => { wrap.classList.remove('playing'); v.controls = false; });
+  new IntersectionObserver(es => { es.forEach(e => { if (!e.isIntersecting && !v.paused) v.pause(); }); }, { threshold: 0.25 }).observe(wrap);
+})();
+
+(() => {
+  const stage = document.getElementById('stage');
+  const els = [...stage.querySelectorAll('.card')];
+  // Resting pose: x/y in card widths, r in degrees
+  const REST = [
+    { x: -0.99, y:  0.06, r: -7 },
+    { x: -0.33, y: -0.05, r:  3 },
+    { x:  0.33, y:  0.05, r: -4 },
+    { x:  0.99, y: -0.07, r:  6 }
+  ];
+  const cards = els.map((el, i) => ({ el, x: 0, y: 0, vx: 0, vy: 0, r: 0, vr: 0, rest: REST[i], drag: false }));
+  let S = els[0].offsetWidth, z = 10;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  addEventListener('resize', () => { S = els[0].offsetWidth; });
+
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const ptr = { x: 0, y: 0, vx: 0, vy: 0, t: 0, active: false, seen: false };
+
+  function local(e) {
+    const b = stage.getBoundingClientRect();
+    return { x: e.clientX - (b.left + b.width / 2), y: e.clientY - (b.top + b.height / 2) };
+  }
+
+  addEventListener('pointermove', e => {
+    const p = local(e), t = performance.now();
+    if (!ptr.seen) { ptr.x = p.x; ptr.y = p.y; ptr.t = t; ptr.seen = true; }
+    const dt = Math.max(1, t - ptr.t) / 1000;
+    ptr.vx = clamp(ptr.vx * 0.6 + ((p.x - ptr.x) / dt) * 0.4, -3000, 3000);
+    ptr.vy = clamp(ptr.vy * 0.6 + ((p.y - ptr.y) / dt) * 0.4, -3000, 3000);
+    ptr.x = p.x; ptr.y = p.y; ptr.t = t;
+    ptr.active = e.pointerType === 'mouse';
+    if (e.pointerType === 'mouse') touch.mode = false;
+  });
+  document.documentElement.addEventListener('mouseleave', () => { ptr.active = false; });
+
+  // Touch: a finger dragged near the cards nudges them away; over a card it drags it a little (capped).
+  // A touch that starts directly on a card skips this and uses the normal grab/kick below.
+  const reach = () => (innerWidth + innerHeight) * 0.075;   // circle radius, about 15% of the screen
+  const touch = { on: false, direct: false, x: 0, y: 0, mode: false, calm: 0 };
+  const touchAt = e => {
+    const t = e.touches[0]; if (!t) return;
+    const p = local(t);
+    touch.x = p.x; touch.y = p.y;
+    if (e.type === 'touchstart') touch.direct = !!(e.target.closest && e.target.closest('.card'));
+    touch.on = true; touch.mode = true; touch.calm = performance.now() + 1500;
+  };
+  addEventListener('touchstart', touchAt, { passive: true });
+  addEventListener('touchmove', touchAt, { passive: true });
+  const touchEnd = () => { touch.on = false; touch.direct = false; touch.calm = performance.now() + 1500; };
+  addEventListener('touchend', touchEnd, { passive: true });
+  addEventListener('touchcancel', touchEnd, { passive: true });
+
+  // Grab, drag, throw, click-to-kick
+  els.forEach((el, i) => {
+    const c = cards[i];
+    el.addEventListener('pointerdown', e => {
+      el.setPointerCapture(e.pointerId);
+      c.drag = true; c.moved = 0; c.vx = c.vy = c.vr = 0;
+      c.sx = e.clientX; c.sy = e.clientY;
+      el.classList.add('drag'); el.style.zIndex = ++z;
+      const p = local(e);
+      c.gx = p.x - (c.rest.x * S + c.x);
+      c.gy = p.y - (c.rest.y * S + c.y);
+      ptr.vx = ptr.vy = 0; ptr.seen = false;
+    });
+    el.addEventListener('pointermove', e => {
+      if (!c.drag) return;
+      const p = local(e);
+      c.x = p.x - c.gx - c.rest.x * S;
+      c.y = p.y - c.gy - c.rest.y * S;
+      if (e.pointerType === 'touch') {   // rubber band: 1:1 at first, then harder and harder, inside a circle
+        const R = reach(), len = Math.hypot(c.x, c.y);
+        if (len > 0.01) { const k = R * Math.tanh(len / R) / len; c.x *= k; c.y *= k; }
+      }
+      c.moved = Math.max(c.moved, Math.hypot(e.clientX - c.sx, e.clientY - c.sy));
+      c.r += (clamp(ptr.vx * 0.01, -25, 25) - c.r) * 0.2;
+    });
+    const end = e => {
+      if (!c.drag) return;
+      c.drag = false; el.classList.remove('drag');
+      if (c.moved < 6) {
+        if (reduce) return;
+        const p = local(e);
+        let dx = c.rest.x * S + c.x - p.x, dy = c.rest.y * S + c.y - p.y;
+        let d = Math.hypot(dx, dy);
+        if (d < 4) { const a = Math.random() * 6.283; dx = Math.cos(a); dy = Math.sin(a); d = 1; }
+        c.vx = dx / d * 1400; c.vy = dy / d * 1400; c.vr = (dx / d) * 500 + (Math.random() - .5) * 200;
+      } else {
+        c.vx = clamp(ptr.vx, -2500, 2500); c.vy = clamp(ptr.vy, -2500, 2500);
+        c.vr = clamp(ptr.vx * 0.1, -400, 400);
+      }
+    };
+    el.addEventListener('pointerup', end);
+    el.addEventListener('pointercancel', end);
+  });
+
+  const K = 55, C = 6.5;     // spring and damping for position
+  const KR = 60, CR = 7;     // spring and damping for rotation
+  let last = performance.now();
+
+  function tick(t) {
+    const dt = Math.min(0.032, (t - last) / 1000); last = t;
+    for (const c of cards) {
+      if (!c.drag) {
+        if (ptr.active && !reduce) {
+          const cx = c.rest.x * S + c.x, cy = c.rest.y * S + c.y;
+          const dx = cx - ptr.x, dy = cy - ptr.y, d = Math.hypot(dx, dy) || 1, R = S * 0.85;
+          if (d < R) {
+            const n = 1 - d / R, f = (S / 150) * 4000 * n * n;
+            c.vx += (dx / d) * f * dt + ptr.vx * n * dt * 8;
+            c.vy += (dy / d) * f * dt + ptr.vy * n * dt * 8;
+            c.vr += (dx / d) * 500 * n * dt + ptr.vx * 0.2 * n * dt;
+          }
+        }
+        if (touch.on && !touch.direct && !reduce) {
+          const cx = c.rest.x * S + c.x, cy = c.rest.y * S + c.y;
+          const dx = cx - touch.x, dy = cy - touch.y, d = Math.hypot(dx, dy) || 1;
+          if (d < S * 0.55) {
+            // finger on the card: follow it a bit, capped at 15% of the screen
+            const R = reach(), rx = (touch.x - c.rest.x * S) * 0.7, ry = (touch.y - c.rest.y * S) * 0.7, len = Math.hypot(rx, ry) || 1;
+            const k = R * Math.tanh(len / R) / len, tx = rx * k, ty = ry * k;
+            c.vx += 90 * (tx - c.x) * dt; c.vy += 90 * (ty - c.y) * dt;
+          } else if (d < S * 1.15) {
+            // finger approaching: ease slightly away
+            const n = 1 - (d - S * 0.55) / (S * 0.6), f = (S / 150) * 4000 * 1.6 * n;
+            c.vx += (dx / d) * f * dt; c.vy += (dy / d) * f * dt;
+          }
+        }
+        const calm = touch.mode && (touch.on || t < touch.calm);
+        const cc = calm ? 15 : C, ccr = calm ? 14 : CR;   // near-critical damping on touch: no wobble
+        c.vx += (-K * c.x - cc * c.vx) * dt; c.x += c.vx * dt;
+        c.vy += (-K * c.y - cc * c.vy) * dt; c.y += c.vy * dt;
+        c.vr += (-KR * c.r - ccr * c.vr) * dt; c.r += c.vr * dt;
+      }
+      if (touch.mode) {   // touch: never more than 15% of the screen away from rest, even when dragged directly
+        const R = reach(), len = Math.hypot(c.x, c.y);
+        if (len > R) { const nx = c.x / len, ny = c.y / len; c.x = nx * R; c.y = ny * R; const vo = c.vx * nx + c.vy * ny; if (vo > 0) { c.vx -= nx * vo; c.vy -= ny * vo; } }
+      }
+      c.el.style.transform =
+        `translate3d(${c.rest.x * S + c.x}px, ${c.rest.y * S + c.y}px, 0) rotate(${c.rest.r + c.r}deg)`;
+    }
+    // Pointer velocity decays when the pointer stops moving
+    ptr.vx *= 0.9; ptr.vy *= 0.9;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// Background dot grid: dots drift away from the cursor and grow slightly near it
+(() => {
+  const cv = document.getElementById('dots'), ctx = cv.getContext('2d');
+  const tagEl = document.querySelector('.tag');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, H = 0, dpr = 1, gap = 28;
+  const m = { x: -999, y: -999, tx: -999, ty: -999, s: 0, ts: 0 };
+
+  function resize() {
+    dpr = Math.min(2, devicePixelRatio || 1);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    gap = W < 600 ? 22 : 28;
+    alignTag();
+  }
+  // Center the tagline vertically between two rows of dots
+  function alignTag() {
+    if (!tagEl) return;
+    tagEl.style.transform = '';
+    const cb = cv.getBoundingClientRect(), tb = tagEl.getBoundingClientRect();
+    const cy = tb.top + tb.height / 2 - cb.top;
+    const oy = (H % gap) / 2;
+    let d = (oy + gap / 2 - cy) % gap;
+    if (d > gap / 2) d -= gap;
+    if (d < -gap / 2) d += gap;
+    tagEl.style.transform = `translateY(${d + gap}px)`; // one row lower, still between rows
+  }
+  addEventListener('resize', resize); resize();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignTag);
+
+  addEventListener('pointermove', e => {
+    const b = cv.getBoundingClientRect();
+    m.tx = e.clientX - b.left; m.ty = e.clientY - b.top; m.ts = 1;
+    if (m.s < 0.02) { m.x = m.tx; m.y = m.ty; }
+  });
+  addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') m.ts = 0; });
+  // Touch: dragging a finger across the dots acts like hover (touchmove keeps firing while the page scrolls)
+  const touchAt = e => {
+    const t = e.touches[0]; if (!t) return;
+    const b = cv.getBoundingClientRect();
+    m.tx = t.clientX - b.left; m.ty = t.clientY - b.top; m.ts = 1;
+    if (m.s < 0.02) { m.x = m.tx; m.y = m.ty; }
+  };
+  addEventListener('touchstart', touchAt, { passive: true });
+  addEventListener('touchmove', touchAt, { passive: true });
+  addEventListener('touchend', () => { m.ts = 0; }, { passive: true });
+  addEventListener('touchcancel', () => { m.ts = 0; }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', () => { m.ts = 0; });
+
+  function frame() {
+    m.x += (m.tx - m.x) * 0.12; m.y += (m.ty - m.y) * 0.12;
+    m.s += (m.ts - m.s) * 0.08;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#d4d4d4';
+    const R = Math.min(190, Math.max(120, W * 0.14));
+    const ox = (W % gap) / 2, oy = (H % gap) / 2;
+    for (let y = oy; y < H; y += gap) {
+      for (let x = ox; x < W; x += gap) {
+        let px = x, py = y, r = 1.3;
+        if (!reduce && m.s > 0.001) {
+          const dx = x - m.x, dy = y - m.y, d = Math.hypot(dx, dy);
+          if (d < R) {
+            const n = (1 - d / R), k = n * n * m.s;
+            const push = 6 * k;
+            px += (dx / (d || 1)) * push; py += (dy / (d || 1)) * push;
+            r += 0.9 * k;
+          }
+        }
+        ctx.beginPath(); ctx.arc(px, py, r, 0, 6.2832); ctx.fill();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// Galleries: hover previews video tiles (muted); click opens a full-screen viewer for videos and images
+(() => {
+  const tiles = [...document.querySelectorAll('.tile')];
+  const lb = document.getElementById('lb'), lv = document.getElementById('lbVideo'), li = document.getElementById('lbImg');
+  const stage = lb.querySelector('.lb-stage');
+  const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const vidOf = t => t.querySelector('video');
+  const rest = v => parseFloat(v.dataset.rest || '0');
+  const seek = (v, t) => { try { v.currentTime = t; } catch (e) {} };
+  let curTile = null, lastFocus = null, hideTimer = 0;
+
+  tiles.forEach(t => { const v = vidOf(t); if (v) v.addEventListener('loadedmetadata', () => seek(v, v.dataset.hov ? 0 : rest(v))); });
+
+  function show(t) {
+    curTile = t;
+    stage.style.setProperty('--ar', t.dataset.ar);
+    const v = vidOf(t);
+    if (v) {
+      li.hidden = true; li.removeAttribute('src');
+      lv.hidden = false;
+      lv.poster = v.getAttribute('poster');
+      lv.src = v.dataset.full || v.getAttribute('src');
+      lv.muted = false;
+      lv.loop = !!t.dataset.loop;
+      lv.play().catch(() => {});
+    } else {
+      lv.pause(); lv.hidden = true; lv.removeAttribute('src'); lv.load();
+      const im = t.querySelector('img');
+      li.src = im.getAttribute('src'); li.alt = im.alt; li.hidden = false;
+    }
+  }
+  function step(d) {
+    const list = [...curTile.closest('.gallery').querySelectorAll('.tile')];
+    show(list[(list.indexOf(curTile) + d + list.length) % list.length]);
+  }
+  function openLb(t) {
+    clearTimeout(hideTimer);
+    lastFocus = document.activeElement;
+    tiles.forEach(x => { const v = vidOf(x); if (v) v.pause(); });
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    show(t);
+    requestAnimationFrame(() => lb.classList.add('open'));
+    lb.querySelector('.lb-close').focus({ preventScroll: true });
+  }
+  function closeLb() {
+    lb.classList.remove('open');
+    lv.pause();
+    document.body.style.overflow = '';
+    hideTimer = setTimeout(() => { lb.hidden = true; lv.removeAttribute('src'); lv.load(); li.removeAttribute('src'); }, 250);
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    document.querySelectorAll('video[data-auto]').forEach(v => {
+      const r = v.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {});
+    });
+  }
+
+  tiles.forEach(t => {
+    const v = vidOf(t);
+    if (v && t.closest('#motion')) {
+      v.dataset.auto = '1';
+      new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting && lb.hidden) v.play().catch(() => {}); else v.pause();
+      }), { threshold: 0.25 }).observe(t);
+    } else if (v && canHover) {
+      t.addEventListener('mouseenter', () => { if (lb.hidden) { v.dataset.hov = '1'; seek(v, 0); v.play().catch(() => {}); } });
+      t.addEventListener('mouseleave', () => { delete v.dataset.hov; v.pause(); seek(v, rest(v)); });
+    }
+    const go = () => { if (t.dataset.href) location.href = t.dataset.href; else openLb(t); };
+    t.addEventListener('click', go);
+    t.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+
+  lb.querySelector('.lb-close').addEventListener('click', closeLb);
+  lb.querySelector('.prev').addEventListener('click', () => step(-1));
+  lb.querySelector('.next').addEventListener('click', () => step(1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') closeLb();
+    else if (e.key === 'ArrowLeft') step(-1);
+    else if (e.key === 'ArrowRight') step(1);
+    else if (e.key === 'Tab') {
+      const f = [...lb.querySelectorAll('button')];
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+})();
+
+// Light sweep on the large text: a narrow diagonal highlight that follows the cursor
+(() => {
+  const heads = [...document.querySelectorAll('h1, h2')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const m = { x: 0, y: 0, sx: 0, sy: 0, last: -1e9, inside: false, a: 0 };
+  addEventListener('pointermove', e => { m.x = e.clientX; m.y = e.clientY; m.last = performance.now(); m.inside = true; });
+  addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') m.inside = false; });
+  document.documentElement.addEventListener('mouseleave', () => { m.inside = false; });
+
+  const SIN = Math.sin(120 * Math.PI / 180), COS = Math.cos(120 * Math.PI / 180); // band angle: 120deg
+  let seen = false;
+  function frame() {
+    if (reduce) { heads.forEach(h => h.style.setProperty('--a', '0')); return; }
+    const on = m.inside;
+    if (on) {
+      if (!seen) { m.sx = m.x; m.sy = m.y; seen = true; }
+      m.sx += (m.x - m.sx) * 0.2; m.sy += (m.y - m.sy) * 0.2;
+    } else seen = false;
+    m.a += ((on ? 0.45 : 0) - m.a) * 0.12;
+    for (const h of heads) {
+      const r = h.getBoundingClientRect();
+      const x = m.sx - r.left, y = m.sy - r.top;
+      // position of the cursor along the 120deg gradient line
+      const L = Math.abs(r.width * SIN) + Math.abs(r.height * COS);
+      const p = (x - r.width / 2) * SIN + (y - r.height / 2) * -COS + L / 2;
+      // fade out when the cursor is far above or below this line of text
+      const away = Math.max(0, Math.abs(y - r.height / 2) - r.height / 2);
+      const near = Math.max(0, 1 - away / 240);
+      h.style.setProperty('--p', p.toFixed(1) + 'px');
+      h.style.setProperty('--a', (m.a * near).toFixed(3));
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+// Gallery items pop in (staggered) as they enter the viewport
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const tiles = [...document.querySelectorAll('.tile')];
+  const io = new IntersectionObserver(entries => {
+    let k = 0;
+    entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left).forEach(e => {
+      e.target.style.setProperty('--d', (k++ * 90) + 'ms');
+      e.target.classList.add('in'); io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  tiles.forEach((t, i) => { t.style.setProperty('--rv-r', (i % 2 ? -2 : 2) + 'deg'); t.classList.add('rv'); io.observe(t); });
+})();
+</script>
+</body>
+</html>
