@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://irisburstein.com/sitemap.xml
