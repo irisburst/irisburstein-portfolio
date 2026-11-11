@@ -7,6 +7,16 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Iris Burstein | Motion &amp; UX Designer</title>
+<script>
+// Fresh visits and reloads start at the top; links with an #anchor (like the project pages' Back link) still jump to their section
+(() => {
+  const nav = performance.getEntriesByType('navigation')[0];
+  if (location.hash || (nav && nav.type === 'back_forward')) return;
+  try { history.scrollRestoration = 'manual'; } catch (e) {}
+  scrollTo(0, 0);
+  addEventListener('load', () => scrollTo(0, 0));
+})();
+</script>
 <meta name="description" content="Portfolio of Iris Burstein: motion graphics, performance marketing video ads, UI/UX design and illustration.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Iris Burstein">
@@ -69,13 +79,13 @@
   .card:nth-child(3) { background-image: url(hc3.jpg); background-size: cover; background-position: center; background-color: #9ba78c; }
   .card:nth-child(4) { background-image: url(hc4.jpg); background-size: cover; background-position: center; background-color: #bc656f; }
   .hint { position: absolute; bottom: 20px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #b5b5b5; }
-  .reel { background: #000; padding: clamp(40px, 8vw, 120px) clamp(16px, 5vw, 64px); display: flex; flex-direction: column; align-items: center; gap: clamp(24px, 3.5vw, 44px); color: #fff; }
-  .reel .ads-title { text-align: center; }
-  .reel-wrap { position: relative; width: 100%; max-width: 1200px; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #111; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
-  .reel-play { position: absolute; left: 50%; top: 50%; width: clamp(64px, 9vw, 96px); height: clamp(64px, 9vw, 96px); margin: calc(clamp(64px, 9vw, 96px) / -2) 0 0 calc(clamp(64px, 9vw, 96px) / -2); border: 0; border-radius: 50%; background: rgba(255,255,255,.92); color: #111; display: grid; place-items: center; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.4); transition: transform .25s, background .25s, color .25s, opacity .25s; }
-  .reel-play svg { width: 36%; height: 36%; margin-left: 6%; }
-  .reel-play:hover { transform: scale(1.08); background: linear-gradient(90deg, #a68bf3, #5db5ff); color: #fff; }
-  .reel-wrap.playing .reel-play { opacity: 0; pointer-events: none; }
+  .reel { background: #000; padding: 0; display: block; color: #fff; }
+  .reel-wrap { position: relative; width: 100%; max-width: calc(100svh * 16 / 9); margin: 0 auto; aspect-ratio: 16 / 9; overflow: hidden; background: #111; cursor: pointer; }
+  .reel-wrap:focus-visible { outline: 3px solid #a68bf3; outline-offset: -3px; }
+  .reel-sound { position: absolute; right: clamp(12px, 2vw, 24px); bottom: clamp(12px, 2vw, 24px); width: clamp(40px, 4.4vw, 52px); height: clamp(40px, 4.4vw, 52px); border: 0; border-radius: 50%; background: rgba(0,0,0,.55); color: #fff; display: grid; place-items: center; cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: transform .25s, background .25s; }
+  .reel-sound svg { width: 52%; height: 52%; }
+  .reel-wrap:hover .reel-sound, .reel-sound:focus-visible { transform: scale(1.1); background: linear-gradient(90deg, #a68bf3, #5db5ff); }
+  .lb.single .lb-nav { display: none; }
   .reel video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
   .ads { background: #fff; color: #2f2f2f; text-align: center; padding: clamp(36px, 5vw, 64px) clamp(16px, 5vw, 64px) clamp(56px, 7vw, 104px); }
   .ads-inner { max-width: 1200px; margin: 0 auto; }
@@ -194,10 +204,9 @@
 </main>
 
 <section class="reel" id="reel">
-  <h3 class="ads-title">Motion Reel</h3>
-  <div class="reel-wrap">
-    <video playsinline preload="none" poster="reel-poster.jpg" src="reel.mp4"></video>
-    <button class="reel-play" type="button" aria-label="Play motion reel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 6 3.5z"/></svg></button>
+  <div class="reel-wrap" role="button" tabindex="0" aria-label="Play the motion reel with sound" data-ar="1.7778" data-autoplay="1">
+    <video muted loop playsinline preload="none" data-rest="0" poster="reel-poster.jpg" src="lo/reel.mp4" data-full="reel.mp4"></video>
+    <button class="reel-sound" type="button" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
   </div>
 </section>
 
@@ -237,8 +246,8 @@
       <li>After Effects</li>
     </ul>
     <div class="gallery bento">
-      <figure class="tile big" tabindex="0" role="button" aria-label="Open the Deep project" data-ar="1.333" data-href="project-deep.html">
-        <video muted loop playsinline preload="none" data-rest="5" poster="ui3.jpg" src="lo/ui3.mp4" data-full="ui3.mp4"></video>
+      <figure class="tile big" tabindex="0" role="button" aria-label="Open the Deep project" data-autoplay="1" data-ar="1.333" data-href="project-deep.html">
+        <video muted loop playsinline preload="none" data-rest="0" poster="ui3.jpg" src="lo/ui3.mp4" data-full="ui3.mp4"></video>
         <span class="expand" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
       </figure>
       <figure class="tile r1 a-sudoku" tabindex="0" role="button" aria-label="Open the Logic Wiz project" data-ar="1.476" data-type="image" data-href="project-sudoku.html">
@@ -376,14 +385,6 @@
 </div>
 
 <script>
-// Reel: big play button; native controls appear once playback starts
-(() => {
-  const wrap = document.querySelector('.reel-wrap'), v = wrap.querySelector('video'), b = wrap.querySelector('.reel-play');
-  b.addEventListener('click', () => { v.controls = true; wrap.classList.add('playing'); v.play(); });
-  v.addEventListener('ended', () => { wrap.classList.remove('playing'); v.controls = false; });
-  new IntersectionObserver(es => { es.forEach(e => { if (!e.isIntersecting && !v.paused) v.pause(); }); }, { threshold: 0.25 }).observe(wrap);
-})();
-
 (() => {
   const stage = document.getElementById('stage');
   const els = [...stage.querySelectorAll('.card')];
@@ -611,10 +612,11 @@
 
 // Galleries: hover previews video tiles (muted); click opens a full-screen viewer for videos and images
 (() => {
-  const tiles = [...document.querySelectorAll('.tile')];
+  const tiles = [...document.querySelectorAll('.tile, .reel-wrap')];
   const lb = document.getElementById('lb'), lv = document.getElementById('lbVideo'), li = document.getElementById('lbImg');
   const stage = lb.querySelector('.lb-stage');
   const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const vidOf = t => t.querySelector('video');
   const rest = v => parseFloat(v.dataset.rest || '0');
   const seek = (v, t) => { try { v.currentTime = t; } catch (e) {} };
@@ -624,6 +626,7 @@
 
   function show(t) {
     curTile = t;
+    lb.classList.toggle('single', !t.closest('.gallery'));
     stage.style.setProperty('--ar', t.dataset.ar);
     const v = vidOf(t);
     if (v) {
@@ -641,7 +644,8 @@
     }
   }
   function step(d) {
-    const list = [...curTile.closest('.gallery').querySelectorAll('.tile')];
+    const g = curTile.closest('.gallery'); if (!g) return;
+    const list = [...g.querySelectorAll('.tile')];
     show(list[(list.indexOf(curTile) + d + list.length) % list.length]);
   }
   function openLb(t) {
@@ -668,10 +672,10 @@
 
   tiles.forEach(t => {
     const v = vidOf(t);
-    if (v && t.closest('#motion')) {
+    if (v && (t.closest('#motion') || t.dataset.autoplay)) {
       v.dataset.auto = '1';
       new IntersectionObserver(es => es.forEach(e => {
-        if (e.isIntersecting && lb.hidden) v.play().catch(() => {}); else v.pause();
+        if (e.isIntersecting && lb.hidden) { if (!(t.dataset.autoplay && reduceMotion)) v.play().catch(() => {}); } else { v.pause(); if (t.dataset.autoplay) seek(v, 0); }
       }), { threshold: 0.25 }).observe(t);
     } else if (v && canHover) {
       t.addEventListener('mouseenter', () => { if (lb.hidden) { v.dataset.hov = '1'; seek(v, 0); v.play().catch(() => {}); } });

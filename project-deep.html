@@ -77,7 +77,7 @@ toTop(); addEventListener('DOMContentLoaded', toTop); addEventListener('load', (
       <p>While I was working as a Product Analyst at AppLovin, the team was working on a meditation app that was already designed. I could not resist the temptation of creating my own take on the app visuals. My work was collecting and analyzing user behavior data to guide product decisions, and while doing that, I also visualized this app in my head and decided to build it as a personal project.</p>
     </div>
     <div class="stack">
-      <div class="hero-v"><video id="deepVid" muted loop playsinline preload="auto" poster="deep-poster.jpg" src="deep.mp4"></video></div>
+      <div class="hero-v"><video id="deepVid" muted loop playsinline autoplay preload="auto" poster="deep-poster.jpg" src="deep.mp4"></video></div>
       <div class="phones"><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="deep1.jpg" alt="Deep app screen 1"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="deep2.jpg" alt="Deep app screen 2"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="deep3.jpg" alt="Deep app screen 3"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="deep4.jpg" alt="Deep app screen 4"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="deep5.jpg" alt="Deep app screen 5"></figure><figure class="shot" tabindex="0" role="button" aria-label="View larger"><img src="deep6.jpg" alt="Deep app screen 6"></figure></div>
     </div>
   </div>
@@ -103,17 +103,16 @@ toTop(); addEventListener('DOMContentLoaded', toTop); addEventListener('load', (
 })();
 </script>
 <script>
-// Plays on hover (muted); on touch screens a tap plays and pauses
+// Autoplays (muted, looping) while in view; pauses and rewinds to the start when scrolled away; a click or tap toggles play and pause
 (() => {
   const v = document.getElementById('deepVid'); if (!v) return;
-  const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const reset = () => { try { v.currentTime = 0; } catch (e) {} };
-  if (canHover) {
-    v.addEventListener('mouseenter', () => { reset(); v.play().catch(() => {}); });
-    v.addEventListener('mouseleave', () => { v.pause(); reset(); });
-  } else {
-    v.addEventListener('click', () => { if (v.paused) v.play().catch(() => {}); else v.pause(); });
-  }
+  let manual = false;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { if (!manual) v.play().catch(() => {}); }
+    else { v.pause(); try { v.currentTime = 0; } catch (e) {} manual = false; }
+  }), { threshold: 0.4 });
+  io.observe(v);
+  v.addEventListener('click', () => { if (v.paused) { manual = false; v.play().catch(() => {}); } else { manual = true; v.pause(); } });
 })();
 </script>
 <script>
