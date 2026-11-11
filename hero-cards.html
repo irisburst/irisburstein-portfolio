@@ -8,6 +8,12 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Iris Burstein | Motion &amp; UX Designer</title>
 <script>
+// Locks page scroll while a viewer is open (iPhone Safari ignores overflow:hidden on the body)
+var _lockY = null;
+function lockScroll() { if (_lockY !== null) return; _lockY = window.scrollY; var b = document.body.style; b.position = 'fixed'; b.top = '-' + _lockY + 'px'; b.left = '0'; b.right = '0'; b.width = '100%'; }
+function unlockScroll() { if (_lockY === null) return; var b = document.body.style, y = _lockY; _lockY = null; b.position = b.top = b.left = b.right = b.width = ''; window.scrollTo(0, y); }
+</script>
+<script>
 // Fresh visits and reloads start at the top; links with an #anchor (like the project pages' Back link) still jump to their section
 (() => {
   const nav = performance.getEntriesByType('navigation')[0];
@@ -109,7 +115,7 @@
   .dog-wrap video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
   .art { background: #17171a; color: #f2f2f2; }
   .art .ads-text { color: #a9a9b0; }
-  .art .chips li { border-color: #3b3b42; color: #cfcfd4; }
+  .art .chips li { border-color: #2f2f35; color: #8f8f98; }
   .art .more { display: inline-block; text-decoration: none; text-align: center; background: #f2f2f2; color: #17171a; }
   .art .more:hover { background: linear-gradient(90deg, #a68bf3, #5db5ff); color: #fff; }
   .jrow.extra { display: none; }
@@ -137,10 +143,10 @@
   .tile:focus-visible { outline: 3px solid #7f9ef7; outline-offset: 3px; }
   .expand { position: absolute; right: 10px; bottom: 10px; width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,.5); color: #fff; display: grid; place-items: center; opacity: 0; transform: scale(.9); transition: opacity .2s, transform .2s; pointer-events: none; }
   .tile:hover .expand, .tile:focus-visible .expand { opacity: 1; transform: none; }
-  .lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.94); opacity: 0; transition: opacity .25s; }
+  .lb { position: fixed; inset: 0; height: 100vh; height: 100dvh; touch-action: none; overscroll-behavior: contain; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.94); opacity: 0; transition: opacity .25s; }
   .lb[hidden] { display: none; }
   .lb.open { opacity: 1; }
-  .lb-stage { --ar: 1.778; aspect-ratio: var(--ar); width: min(84vw, calc(86vh * var(--ar))); border-radius: 12px; overflow: hidden; background: #000; transform: scale(.96); transition: transform .25s; }
+  .lb-stage { --ar: 1.778; aspect-ratio: var(--ar); width: min(84vw, calc(86vh * var(--ar))); width: min(84vw, calc(86dvh * var(--ar))); border-radius: 12px; overflow: hidden; background: #000; transform: scale(.96); transition: transform .25s; }
   .lb.open .lb-stage { transform: none; }
   .lb video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
   .lb-close, .lb-nav { position: absolute; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; display: grid; place-items: center; cursor: pointer; transition: background .2s; }
@@ -150,7 +156,7 @@
   .lb-nav.prev { left: 18px; }
   .lb-nav.next { right: 18px; }
   @media (max-width: 700px) {
-    .lb-stage { width: min(96vw, calc(78vh * var(--ar))); }
+    .lb-stage { width: min(96vw, calc(78vh * var(--ar))); width: min(96vw, calc(78dvh * var(--ar))); }
     .lb-nav { top: auto; bottom: 24px; margin: 0; }
     .lb-nav.prev { left: calc(50% - 56px); }
     .lb-nav.next { right: calc(50% - 56px); }
@@ -653,7 +659,7 @@
     lastFocus = document.activeElement;
     tiles.forEach(x => { const v = vidOf(x); if (v) v.pause(); });
     lb.hidden = false;
-    document.body.style.overflow = 'hidden';
+    lockScroll();
     show(t);
     requestAnimationFrame(() => lb.classList.add('open'));
     lb.querySelector('.lb-close').focus({ preventScroll: true });
@@ -661,7 +667,7 @@
   function closeLb() {
     lb.classList.remove('open');
     lv.pause();
-    document.body.style.overflow = '';
+    unlockScroll();
     hideTimer = setTimeout(() => { lb.hidden = true; lv.removeAttribute('src'); lv.load(); li.removeAttribute('src'); }, 250);
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
     document.querySelectorAll('video[data-auto]').forEach(v => {

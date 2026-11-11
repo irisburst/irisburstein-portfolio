@@ -7,6 +7,12 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Deep: Meditation App Design | Iris Burstein</title>
+<script>
+// Locks page scroll while a viewer is open (iPhone Safari ignores overflow:hidden on the body)
+var _lockY = null;
+function lockScroll() { if (_lockY !== null) return; _lockY = window.scrollY; var b = document.body.style; b.position = 'fixed'; b.top = '-' + _lockY + 'px'; b.left = '0'; b.right = '0'; b.width = '100%'; }
+function unlockScroll() { if (_lockY === null) return; var b = document.body.style, y = _lockY; _lockY = null; b.position = b.top = b.left = b.right = b.width = ''; window.scrollTo(0, y); }
+</script>
 <meta name="description" content="A meditation app design with UI/UX, app design and motion, created in Figma as a personal project by Iris Burstein.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Iris Burstein">
@@ -48,10 +54,10 @@
   .shot.rv { opacity: 0; translate: 0 44px; scale: .92; rotate: var(--rv-r, 2deg); }
   .shot.rv.in { opacity: 1; translate: 0 0; scale: 1; rotate: 0deg; transition: opacity .5s ease, translate .85s cubic-bezier(.2, 1.35, .4, 1), scale .85s cubic-bezier(.2, 1.35, .4, 1), rotate .85s cubic-bezier(.2, 1.35, .4, 1); transition-delay: var(--d, 0ms); }
   @media (prefers-reduced-motion: reduce) { .shot.rv { opacity: 1; translate: none; scale: 1; rotate: 0deg; } }
-  .lb { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.94); opacity: 0; transition: opacity .25s; cursor: zoom-out; }
+  .lb { position: fixed; inset: 0; height: 100vh; height: 100dvh; touch-action: none; overscroll-behavior: contain; z-index: 1000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.94); opacity: 0; transition: opacity .25s; cursor: zoom-out; }
   .lb.open { opacity: 1; }
   .lb[hidden] { display: none; }
-  .lb img { max-width: 94vw; max-height: 94vh; object-fit: contain; border-radius: 8px; }
+  .lb img { max-width: 94vw; max-height: 94vh; max-height: 94dvh; object-fit: contain; border-radius: 8px; }
   .lb-close { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; display: grid; place-items: center; cursor: pointer; }
   .lb-close:hover { background: rgba(255,255,255,.26); }
   .site-foot { padding: 28px 16px 34px; text-align: center; font-size: 13px; letter-spacing: .06em; line-height: 1.9; color: #6b6b6b; background: #fff; border-top: 1px solid #ececec; }
@@ -89,8 +95,8 @@ toTop(); addEventListener('DOMContentLoaded', toTop); addEventListener('load', (
 (() => {
   const shots = [...document.querySelectorAll('.shot')];
   const lb = document.getElementById('lb'), li = lb.querySelector('img'); let last = null, t = 0;
-  const open = s => { clearTimeout(t); last = s; const im = s.querySelector('img'); li.src = im.currentSrc || im.src; li.alt = im.alt; lb.hidden = false; document.body.style.overflow = 'hidden'; requestAnimationFrame(() => lb.classList.add('open')); lb.querySelector('button').focus({ preventScroll: true }); };
-  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; t = setTimeout(() => { lb.hidden = true; li.removeAttribute('src'); }, 250); if (last) last.focus({ preventScroll: true }); };
+  const open = s => { clearTimeout(t); last = s; const im = s.querySelector('img'); li.src = im.currentSrc || im.src; li.alt = im.alt; lb.hidden = false; lockScroll(); requestAnimationFrame(() => lb.classList.add('open')); lb.querySelector('button').focus({ preventScroll: true }); };
+  const close = () => { lb.classList.remove('open'); unlockScroll(); t = setTimeout(() => { lb.hidden = true; li.removeAttribute('src'); }, 250); if (last) last.focus({ preventScroll: true }); };
   shots.forEach(s => { s.addEventListener('click', () => open(s)); s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(s); } }); });
   lb.addEventListener('click', close);
   document.addEventListener('keydown', e => { if (!lb.hidden && e.key === 'Escape') close(); });
