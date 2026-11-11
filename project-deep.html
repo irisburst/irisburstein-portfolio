@@ -65,6 +65,13 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   .site-foot a { color: #555; text-decoration: none; border-bottom: 1px solid #c9c9d0; transition: color .2s, border-color .2s; }
   .site-foot a:hover { color: #5a6fe0; border-color: #5a6fe0; }
   .site-foot .sep { margin: 0 8px; opacity: .6; }
+  /* Centered play badge on videos that are not playing */
+  .tile, .reel-wrap, .vid, .hero-v { position: relative; }
+  .play-badge { position: absolute; left: 50%; top: 50%; z-index: 2; width: clamp(48px, 6vw, 68px); height: clamp(48px, 6vw, 68px); border-radius: 50%; background: rgba(0,0,0,.5); color: #fff; display: grid; place-items: center; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); pointer-events: none; opacity: 1; transform: translate(-50%, -50%); transition: opacity .25s, transform .25s; }
+  .play-badge svg { width: 42%; height: 42%; margin-left: 6%; }
+  .is-playing > .play-badge { opacity: 0; transform: translate(-50%, -50%) scale(.9); }
+  .auto-host > .play-badge { opacity: 0; }
+  .auto-host.needs-play:not(.is-playing) > .play-badge { opacity: 1; }
 </style>
 <script>
 // Sub-pages always open at the top (unless linking to a section)
@@ -129,6 +136,32 @@ toTop(); addEventListener('DOMContentLoaded', toTop); addEventListener('load', (
     if (!e.isIntersecting && !v.paused && !v.muted) v.pause();
   }), { threshold: 0.25 });
   document.querySelectorAll('video:not(#lbVideo)').forEach(v => io.observe(v));
+})();
+</script>
+<script>
+// Centered play badge for any video that is not playing; videos that normally autoplay only show it if autoplay was blocked (e.g. Low Power Mode)
+(() => {
+  const svg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 4.8v14.4L19.5 12z" fill="currentColor"/></svg>';
+  document.querySelectorAll('.tile video, .reel-wrap video, .vid video, .hero-v video').forEach(v => {
+    const host = v.parentElement;
+    const auto = !!(host.dataset.autoplay || host.closest('#motion') || host.classList.contains('hero-v') || v.hasAttribute('autoplay'));
+    const badge = document.createElement('span');
+    badge.className = 'play-badge'; badge.setAttribute('aria-hidden', 'true'); badge.innerHTML = svg;
+    host.appendChild(badge);
+    if (auto) host.classList.add('auto-host');
+    const sync = () => host.classList.toggle('is-playing', !v.paused && !v.ended && v.readyState > 2);
+    ['playing', 'pause', 'ended', 'emptied', 'waiting', 'timeupdate'].forEach(e => v.addEventListener(e, sync));
+    sync();
+    if (auto) {
+      let timer = null;
+      new IntersectionObserver(es => es.forEach(e => {
+        clearTimeout(timer);
+        if (e.isIntersecting) timer = setTimeout(() => { if (v.paused) host.classList.add('needs-play'); }, 1600);
+        else host.classList.remove('needs-play');
+      }), { threshold: 0.4 }).observe(host);
+      v.addEventListener('playing', () => host.classList.remove('needs-play'));
+    }
+  });
 })();
 </script>
 </body>
