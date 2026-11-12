@@ -100,6 +100,9 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   .chips { list-style: none; padding: 0; margin: 20px 0 clamp(24px, 3vw, 36px); display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
   .chips li { padding: 6px 14px; border: 1px solid #d6d6d6; border-radius: 999px; font-size: 14px; color: #555; letter-spacing: .02em; }
   .gallery { display: grid; grid-template-columns: 1.778fr .8fr .8fr; gap: clamp(10px, 1.6vw, 20px); align-items: stretch; }
+  /* Safari: grid items with aspect-ratio collapse to 0 height under align-items: stretch */
+  #video-work .gallery, #uiux .gallery { align-items: start; }
+  #uiux .bento .tile.big { align-self: stretch; }
   .tile { position: relative; margin: 0; border-radius: 14px; overflow: hidden; background: #eee; cursor: pointer; }
   .tile.wide { aspect-ratio: 16 / 9; }
   .tile.tall { aspect-ratio: 4 / 5; }
@@ -166,6 +169,7 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
     .tile.wide { grid-column: 1 / -1; }
     .gallery.bento { grid-template-columns: 1fr; }
     .bento .tile.big { grid-column: 1; grid-row: auto; aspect-ratio: 4 / 3; }
+    #uiux .bento .tile.big { align-self: start; }
     .bento .tile.r1, .bento .tile.r2 { grid-column: 1; }
   }
   h1, h2 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; }
