@@ -93,10 +93,10 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   .reel-wrap:hover .reel-sound, .reel-sound:focus-visible { transform: scale(1.1); background: linear-gradient(90deg, #a68bf3, #5db5ff); }
   .lb.single .lb-nav { display: none; }
   .reel video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
-  .ads { background: #fff; color: #2f2f2f; text-align: center; padding: clamp(36px, 5vw, 64px) clamp(16px, 5vw, 64px) clamp(56px, 7vw, 104px); }
-  .ads-inner { max-width: 1200px; margin: 0 auto; }
-  .ads-title { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: clamp(40px, 7vw, 80px); line-height: 1; }
-  .ads-text { margin-top: 14px; font-size: clamp(16px, 2vw, 22px); color: #6b6b6b; }
+  .blk { background: #fff; color: #2f2f2f; text-align: center; padding: clamp(36px, 5vw, 64px) clamp(16px, 5vw, 64px) clamp(56px, 7vw, 104px); }
+  .blk-inner { max-width: 1200px; margin: 0 auto; }
+  .blk-title { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: clamp(40px, 7vw, 80px); line-height: 1; }
+  .blk-text { margin-top: 14px; font-size: clamp(16px, 2vw, 22px); color: #6b6b6b; }
   .chips { list-style: none; padding: 0; margin: 20px 0 clamp(24px, 3vw, 36px); display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
   .chips li { padding: 6px 14px; border: 1px solid #d6d6d6; border-radius: 999px; font-size: 14px; color: #555; letter-spacing: .02em; }
   .gallery { display: grid; grid-template-columns: 1.778fr .8fr .8fr; gap: clamp(10px, 1.6vw, 20px); align-items: stretch; }
@@ -114,7 +114,7 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   .dog-wrap { width: 100%; max-width: 1000px; margin: 0 auto; aspect-ratio: 5 / 3; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 18px 50px rgba(30,60,110,.22); }
   .dog-wrap video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
   .art { background: #17171a; color: #f2f2f2; }
-  .art .ads-text { color: #a9a9b0; }
+  .art .blk-text { color: #a9a9b0; }
   .art .chips li { border-color: #2f2f35; color: #8f8f98; }
   .art .more { display: inline-block; text-decoration: none; text-align: center; background: #f2f2f2; color: #17171a; }
   .art .more:hover { background: linear-gradient(90deg, #a68bf3, #5db5ff); color: #fff; }
@@ -223,10 +223,10 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   </div>
 </section>
 
-<section class="ads" id="ads">
-  <div class="ads-inner">
-    <h3 class="ads-title">Video ads</h3>
-    <p class="ads-text">Data-driven creatives for mobile gaming and more</p>
+<section class="blk" id="video-work">
+  <div class="blk-inner">
+    <h3 class="blk-title">Video ads</h3>
+    <p class="blk-text">Data-driven creatives for mobile gaming and more</p>
     <ul class="chips">
       <li>Performance marketing</li>
       <li>After Effects</li>
@@ -250,10 +250,10 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   </div>
 </section>
 
-<section class="ads ui" id="uiux">
-  <div class="ads-inner">
-    <h3 class="ads-title">UI/UX Design</h3>
-    <p class="ads-text">A mix of personal and paid projects for app and web design</p>
+<section class="blk ui" id="uiux">
+  <div class="blk-inner">
+    <h3 class="blk-title">UI/UX Design</h3>
+    <p class="blk-text">A mix of personal and paid projects for app and web design</p>
     <ul class="chips">
       <li>Figma</li>
       <li>After Effects</li>
@@ -275,10 +275,10 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   </div>
 </section>
 
-<section class="ads motion" id="motion">
-  <div class="ads-inner">
-    <h3 class="ads-title">Motion &amp; characters</h3>
-    <p class="ads-text">In-game character design, marketing material and fun side projects</p>
+<section class="blk motion" id="motion">
+  <div class="blk-inner">
+    <h3 class="blk-title">Motion &amp; characters</h3>
+    <p class="blk-text">In-game character design, marketing material and fun side projects</p>
     <ul class="chips">
       <li>Illustration</li>
       <li>Animation</li>
@@ -308,9 +308,9 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   </div>
 </section>
 
-<section class="ads sci" id="sci">
-  <div class="ads-inner">
-    <h3 class="ads-title">Scientific Illustration</h3>
+<section class="blk sci" id="sci">
+  <div class="blk-inner">
+    <h3 class="blk-title">Scientific Illustration</h3>
     <ul class="chips">
       <li>Figma</li>
       <li>Photoshop</li>
@@ -336,10 +336,10 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   </div>
 </section>
 
-<section class="ads art" id="art">
-  <div class="ads-inner">
-    <h3 class="ads-title">Classic Art</h3>
-    <p class="ads-text">This is where I came from</p>
+<section class="blk art" id="art">
+  <div class="blk-inner">
+    <h3 class="blk-title">Classic Art</h3>
+    <p class="blk-text">This is where I came from</p>
     <ul class="chips">
       <li>Acrylic</li>
       <li>Oil</li>
@@ -374,10 +374,10 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
 
 
 
-<section class="ads dogvid" id="dogvid">
-  <div class="ads-inner">
-    <h3 class="ads-title">AI video about my dog (2024)</h3>
-    <p class="ads-text">Bonus points for scrolling this far!<br>Suki is a real supermodel.</p>
+<section class="blk dogvid" id="dogvid">
+  <div class="blk-inner">
+    <h3 class="blk-title">AI video about my dog (2024)</h3>
+    <p class="blk-text">Bonus points for scrolling this far!<br>Suki is a real supermodel.</p>
     <ul class="chips">
       <li>Runway</li>
       <li>Luma</li>

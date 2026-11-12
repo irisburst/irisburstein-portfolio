@@ -75,10 +75,10 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   .reel { background: #000; padding: clamp(40px, 8vw, 120px) clamp(16px, 5vw, 64px); display: flex; justify-content: center; }
   .reel-wrap { width: 100%; max-width: 1200px; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #111; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
   .reel video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
-  .ads { background: #fff; color: #2f2f2f; text-align: center; padding: clamp(36px, 5vw, 64px) clamp(16px, 5vw, 64px) clamp(56px, 7vw, 104px); }
-  .ads-inner { max-width: 1200px; margin: 0 auto; }
-  .ads-title { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: clamp(40px, 7vw, 80px); line-height: 1; }
-  .ads-text { margin-top: 14px; font-size: clamp(16px, 2vw, 22px); color: #6b6b6b; }
+  .blk { background: #fff; color: #2f2f2f; text-align: center; padding: clamp(36px, 5vw, 64px) clamp(16px, 5vw, 64px) clamp(56px, 7vw, 104px); }
+  .blk-inner { max-width: 1200px; margin: 0 auto; }
+  .blk-title { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: clamp(40px, 7vw, 80px); line-height: 1; }
+  .blk-text { margin-top: 14px; font-size: clamp(16px, 2vw, 22px); color: #6b6b6b; }
   .chips { list-style: none; padding: 0; margin: 20px 0 clamp(24px, 3vw, 36px); display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
   .chips li { padding: 6px 14px; border: 1px solid #d6d6d6; border-radius: 999px; font-size: 14px; color: #555; letter-spacing: .02em; }
   .gallery { display: grid; grid-template-columns: 1.778fr .8fr .8fr; gap: clamp(10px, 1.6vw, 20px); align-items: stretch; }
@@ -92,7 +92,7 @@ function unlockScroll() { if (_lockY === null) return; var b = document.body.sty
   .motion { background: #fff; }
   .sci { background: #e9f3f1; }
   .art { background: #17171a; color: #f2f2f2; }
-  .art .ads-text { color: #a9a9b0; }
+  .art .blk-text { color: #a9a9b0; }
   .art .chips li { border-color: #2f2f35; color: #8f8f98; }
   .art .more { background: #f2f2f2; color: #17171a; }
   .art .more:hover { color: #fff; }
@@ -185,11 +185,11 @@ toTop(); addEventListener('DOMContentLoaded', toTop); addEventListener('load', (
 </script>
 </head>
 <body>
-<section class="ads art" id="art">
+<section class="blk art" id="art">
   <a class="art-back" href="index.html"><svg class="bk" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7.5 3.5 3 8l4.5 4.5"/></svg><span>Back</span></a>
-  <div class="ads-inner">
-    <h3 class="ads-title">Classic Art</h3>
-    <p class="ads-text">This is where I came from</p>
+  <div class="blk-inner">
+    <h3 class="blk-title">Classic Art</h3>
+    <p class="blk-text">This is where I came from</p>
     <ul class="chips">
       <li>Acrylic</li>
       <li>Oil</li>
